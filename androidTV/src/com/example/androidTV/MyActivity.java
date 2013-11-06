@@ -2,9 +2,16 @@ package com.example.androidTV;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.*;
 
 
@@ -12,22 +19,64 @@ public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                                  WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.main);
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        final WebView webView = (WebView) findViewById(R.id.webView);
+        webView.setFocusable(false);
+        webView.setFocusableInTouchMode(false);
 
+        final GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
+        gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //To change body of implemented methods use File | Settings | File Templates.
+                Log.d("xyzhou", "" + adapterView.getId());
+                Log.d("xyzhou", "" + l);
+
+                webView.loadUrl("file:///android_asset/" + i + ".html");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d("xyzhou", "onNothingSelected");
+                //To change body of implemented methods use File | Settings | File Templates.
+                adapterView.getChildAt(0).setFocusable(true);
+                adapterView.getChildAt(0).setFocusableInTouchMode(true);
+                adapterView.getChildAt(0).requestFocus();
+                //adapterView.getChildAt(0).requestFocusFromTouch();
+                //adapterView.setSelected(true);
+            }
+        });
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(MyActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
+
+        //gridview.setFocusable(false);
+        //gridview.setFocusableInTouchMode(false);
+        //gridview.requestFocus();
+        //Log.d("xyzhou", "" + gridview.getSelectedItem());
+
+        //gridview.setSelected(true);
+        //gridview.setSelection(0);
+        gridview.getOnItemSelectedListener().onItemSelected(gridview, gridview.getChildAt(0), 0, 0);
+        //gridview.setClipChildren(true);
+        //Log.d("xyzhou", "" + gridview.getChildAt(0));
+        //gridview.requestFocus();
     }
 
     public class ImageAdapter extends BaseAdapter {
+
         private Context mContext;
 
         public ImageAdapter(Context c) {
@@ -52,30 +101,18 @@ public class MyActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             //return null;  //To change body of implemented methods use File | Settings | File Templates.
-            /*ImageView imageView;
+            ImageView imageView;
             if (convertView == null) {  // if it's not recycled, initialize some attributes
                 imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setLayoutParams(new GridView.LayoutParams(180, 180));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setPadding(8, 8, 8, 8);
             } else {
                 imageView = (ImageView) convertView;
             }
 
             imageView.setImageResource(mThumbIds[position]);
-            return imageView;*/
-            ImageButton imageButton;
-            if (convertView == null) {  // if it's not recycled, initialize some attributes
-                imageButton = new ImageButton(mContext);
-                imageButton.setLayoutParams(new GridView.LayoutParams(85, 85));
-                imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageButton.setPadding(8, 8, 8, 8);
-            } else {
-                imageButton = (ImageButton) convertView;
-            }
-
-            imageButton.setImageResource(mThumbIds[position]);
-            return imageButton;
+            return imageView;
         }
 
         private Integer[] mThumbIds = {
