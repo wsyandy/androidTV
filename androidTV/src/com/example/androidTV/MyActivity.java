@@ -49,11 +49,13 @@ public class MyActivity extends Activity {
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Log.d("xyzhou", "onNothingSelected");
                 //To change body of implemented methods use File | Settings | File Templates.
-                adapterView.getChildAt(0).setFocusable(true);
-                adapterView.getChildAt(0).setFocusableInTouchMode(true);
-                adapterView.getChildAt(0).requestFocus();
+                //adapterView.getChildAt(0).setFocusable(true);
+                //adapterView.getChildAt(0).setFocusableInTouchMode(true);
+                //adapterView.getChildAt(0).requestFocus();
                 //adapterView.getChildAt(0).requestFocusFromTouch();
-                //adapterView.setSelected(true);
+                adapterView.setFocusable(true);
+                adapterView.setSelected(true);
+                adapterView.setSelection(0);
             }
         });
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,9 +106,9 @@ public class MyActivity extends Activity {
             ImageView imageView;
             if (convertView == null) {  // if it's not recycled, initialize some attributes
                 imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(180, 180));
+                imageView.setLayoutParams(new GridView.LayoutParams(180, 100));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                imageView.setPadding(8, 8, 8, 8);
+                imageView.setPadding(2, 2, 2, 2);
             } else {
                 imageView = (ImageView) convertView;
             }
@@ -116,7 +118,15 @@ public class MyActivity extends Activity {
         }
 
         private Integer[] mThumbIds = {
-                R.drawable.sample_2, R.drawable.sample_3,
+                R.drawable.movie, R.drawable.tv1,
+                R.drawable.music, R.drawable.computer,
+                R.drawable.settings, R.drawable.netflix,
+                R.drawable.mlb, R.drawable.preview,
+                R.drawable.youtube, R.drawable.vimeo,
+                R.drawable.podcast, R.drawable.radio,
+                R.drawable.photo_stream, R.drawable.flickr,
+                R.drawable.wsj
+                /*R.drawable.sample_2, R.drawable.sample_3,
                 R.drawable.sample_4, R.drawable.sample_5,
                 R.drawable.sample_6, R.drawable.sample_7,
                 R.drawable.sample_0, R.drawable.sample_1,
@@ -126,7 +136,7 @@ public class MyActivity extends Activity {
                 R.drawable.sample_0, R.drawable.sample_1,
                 R.drawable.sample_2, R.drawable.sample_3,
                 R.drawable.sample_4, R.drawable.sample_5,
-                R.drawable.sample_6, R.drawable.sample_7
+                R.drawable.sample_6, R.drawable.sample_7*/
         };
     }
 }

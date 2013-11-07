@@ -24,7 +24,7 @@
               android:padding="4dp"
               android:stretchMode="columnWidth"
               android:gravity="center"
-              android:background="@drawable/ocean"
+              android:background="#000000"
               android:layout_weight="3"
               android:listSelector="#ffffff"
               android:focusable="false"
