@@ -7,10 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.*;
 import android.webkit.WebView;
 import android.widget.*;
 
@@ -19,7 +16,6 @@ public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,23 +35,25 @@ public class MyActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //To change body of implemented methods use File | Settings | File Templates.
-                Log.d("xyzhou", "" + adapterView.getId());
-                Log.d("xyzhou", "" + l);
+                //Log.d("xyzhou", "adapterView.getId() = " + adapterView.getId());
+                //Log.d("xyzhou", "view.tag = " + (Integer)view.getTag());
+                //Log.d("xyzhou", "i = " + i);
+                //Log.d("xyzhou", "l = " + l);
 
                 webView.loadUrl("file:///android_asset/" + i + ".html");
+                Log.d("xyzhou", "adapterView.getFocusedChild().getTag() = " + adapterView.getSelectedItem());
+                Log.d("xyzhou", "focus ? = " + adapterView.getChildAt(0).hasWindowFocus());
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Log.d("xyzhou", "onNothingSelected");
-                //To change body of implemented methods use File | Settings | File Templates.
+                //Log.d("xyzhou", "focus ? = " + adapterView.getChildAt(0).hasWindowFocus());
                 //adapterView.getChildAt(0).setFocusable(true);
                 //adapterView.getChildAt(0).setFocusableInTouchMode(true);
                 //adapterView.getChildAt(0).requestFocus();
-                //adapterView.getChildAt(0).requestFocusFromTouch();
-                adapterView.setFocusable(true);
-                adapterView.setSelected(true);
-                adapterView.setSelection(0);
+                //To change body of implemented methods use File | Settings | File Templates.
             }
         });
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,17 +62,13 @@ public class MyActivity extends Activity {
             }
         });
 
-        //gridview.setFocusable(false);
-        //gridview.setFocusableInTouchMode(false);
-        //gridview.requestFocus();
-        //Log.d("xyzhou", "" + gridview.getSelectedItem());
 
-        //gridview.setSelected(true);
-        //gridview.setSelection(0);
-        gridview.getOnItemSelectedListener().onItemSelected(gridview, gridview.getChildAt(0), 0, 0);
-        //gridview.setClipChildren(true);
-        //Log.d("xyzhou", "" + gridview.getChildAt(0));
-        //gridview.requestFocus();
+        //gridview.getOnItemSelectedListener().onItemSelected(gridview, gridview.getChildAt(0), 0, 0);
+
+        //gridview.setSelected(false);
+        gridview.setSelection(0);
+        gridview.setSelected(true);
+
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -92,7 +86,8 @@ public class MyActivity extends Activity {
 
         @Override
         public Object getItem(int i) {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
+            //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            return null;
         }
 
         @Override
@@ -113,6 +108,7 @@ public class MyActivity extends Activity {
                 imageView = (ImageView) convertView;
             }
 
+            imageView.setTag(position);
             imageView.setImageResource(mThumbIds[position]);
             return imageView;
         }
@@ -126,17 +122,6 @@ public class MyActivity extends Activity {
                 R.drawable.podcast, R.drawable.radio,
                 R.drawable.photo_stream, R.drawable.flickr,
                 R.drawable.wsj
-                /*R.drawable.sample_2, R.drawable.sample_3,
-                R.drawable.sample_4, R.drawable.sample_5,
-                R.drawable.sample_6, R.drawable.sample_7,
-                R.drawable.sample_0, R.drawable.sample_1,
-                R.drawable.sample_2, R.drawable.sample_3,
-                R.drawable.sample_4, R.drawable.sample_5,
-                R.drawable.sample_6, R.drawable.sample_7,
-                R.drawable.sample_0, R.drawable.sample_1,
-                R.drawable.sample_2, R.drawable.sample_3,
-                R.drawable.sample_4, R.drawable.sample_5,
-                R.drawable.sample_6, R.drawable.sample_7*/
         };
     }
 }
