@@ -28,6 +28,7 @@ D:\androidTV\res\drawable-ldpi\ic_launcher.png \
 D:\androidTV\res\drawable-mdpi\ic_launcher.png \
 D:\androidTV\res\drawable-xhdpi\ic_launcher.png \
 D:\androidTV\res\layout\main.xml \
+D:\androidTV\res\layout\myitem.xml \
 D:\androidTV\res\values\strings.xml \
 D:\androidTV\bin\res\drawable-hdpi\computer.png \
 D:\androidTV\bin\res\drawable-hdpi\flickr.png \

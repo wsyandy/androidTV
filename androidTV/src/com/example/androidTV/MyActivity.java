@@ -7,12 +7,40 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.util.Pair;
 import android.view.*;
 import android.webkit.WebView;
 import android.widget.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MyActivity extends Activity {
+
+    final private Map<Integer, String> map = new HashMap<Integer, String>();
+
+    //final private Integer [] mThumbIds = {1, 2};
+
+    //final private Pair<Integer, String> pair = new Pair<Integer, String>(1, "1");
+    final private Integer [] mThumbIds = {
+            R.drawable.movie,
+            R.drawable.tv1,
+            R.drawable.music,
+            R.drawable.computer,
+            R.drawable.settings,
+            R.drawable.netflix,
+            R.drawable.mlb,
+            R.drawable.preview,
+            R.drawable.youtube,
+            R.drawable.vimeo,
+            R.drawable.podcast,
+            R.drawable.radio,
+            R.drawable.photo_stream,
+            R.drawable.flickr,
+            R.drawable.wsj
+    };
+
     /**
      * Called when the activity is first created.
      */
@@ -41,19 +69,23 @@ public class MyActivity extends Activity {
                 //Log.d("xyzhou", "l = " + l);
 
                 webView.loadUrl("file:///android_asset/" + i + ".html");
-                Log.d("xyzhou", "adapterView.getFocusedChild().getTag() = " + adapterView.getSelectedItem());
+                //Log.d("xyzhou", "adapterView.getFocusedChild().getTag() = " + adapterView.getSelectedItem());
                 Log.d("xyzhou", "focus ? = " + adapterView.getChildAt(0).hasWindowFocus());
+                //getCurrentFocus().getId();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Log.d("xyzhou", "onNothingSelected");
+                Log.d("xyzhou", "adapterView.getChildAt(0).hasWindowFocus() = " + adapterView.getChildAt(0).hasWindowFocus());
+
                 //Log.d("xyzhou", "focus ? = " + adapterView.getChildAt(0).hasWindowFocus());
                 //adapterView.getChildAt(0).setFocusable(true);
                 //adapterView.getChildAt(0).setFocusableInTouchMode(true);
                 //adapterView.getChildAt(0).requestFocus();
                 //To change body of implemented methods use File | Settings | File Templates.
+                //adapterView.getChildAt(0).requestFitSystemWindows();
             }
         });
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -66,9 +98,28 @@ public class MyActivity extends Activity {
         //gridview.getOnItemSelectedListener().onItemSelected(gridview, gridview.getChildAt(0), 0, 0);
 
         //gridview.setSelected(false);
-        gridview.setSelection(0);
-        gridview.setSelected(true);
+        //gridview.setSelection(0);
+        //gridview.setSelected(true);
+        //gridview.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
+        for (Integer i = 0; i < mThumbIds.length; i++) {
+            map.put(mThumbIds[i], "123");
+        }
+        /*map.put(R.drawable.movie, "movie");
+        map.put(R.drawable.tv1, "tv1");
+        map.put(R.drawable.music, "music");
+        map.put(R.drawable.computer, "computer");
+        map.put(R.drawable.settings, "settings");
+        map.put(R.drawable.netflix, "netflix");
+        map.put(R.drawable.mlb, "mlb");
+        map.put(R.drawable.preview, "preview");
+        map.put(R.drawable.youtube, "youtube");
+        map.put(R.drawable.vimeo, "vimeo");
+        map.put(R.drawable.podcast, "podcast");
+        map.put(R.drawable.radio, "radio");
+        map.put(R.drawable.photo_stream, "photo_stream");
+        map.put(R.drawable.flickr, "flickr");
+        map.put(R.drawable.wsj, "wsj");*/
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -98,30 +149,38 @@ public class MyActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             ImageView imageView;
             if (convertView == null) {  // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
+                convertView = layoutInflater.inflate(R.layout.myitem, null);
+                /*imageView = new ImageView(mContext);
                 imageView.setLayoutParams(new GridView.LayoutParams(180, 100));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                imageView.setPadding(2, 2, 2, 2);
+                imageView.setPadding(2, 2, 2, 2);*/
             } else {
-                imageView = (ImageView) convertView;
+                //imageView = (ImageView) convertView;
             }
-
-            imageView.setTag(position);
-            imageView.setImageResource(mThumbIds[position]);
-            return imageView;
+            convertView.setLayoutParams(new GridView.LayoutParams(180, 100));
+            ((ImageView)convertView.findViewById(R.id.imageView)).setImageResource(mThumbIds[position]);
+            ((TextView)convertView.findViewById(R.id.textView)).setText(map.get(mThumbIds[position]));
+            //imageView.setTag(position);
+            //imageView.setSelected(true);
+            //imageView.setFocusable(true);
+            //imageView.setFocusableInTouchMode(true);
+            //imageView.setImageResource(mThumbIds[position]);
+            //return imageView;
+            return convertView;
         }
-
-        private Integer[] mThumbIds = {
-                R.drawable.movie, R.drawable.tv1,
-                R.drawable.music, R.drawable.computer,
-                R.drawable.settings, R.drawable.netflix,
-                R.drawable.mlb, R.drawable.preview,
-                R.drawable.youtube, R.drawable.vimeo,
-                R.drawable.podcast, R.drawable.radio,
-                R.drawable.photo_stream, R.drawable.flickr,
-                R.drawable.wsj
-        };
     }
+
+   /* @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+        Log.d("xyzhou", "hasFocus = " + hasFocus);
+        Log.d("xyzhou", "onWindowFocusChanged");
+        Log.d("xyzhou", "super.getCurrentFocus().getId() = " + super.getCurrentFocus().getId());
+        Log.d("xyzhou", "R.id.webView = " + R.id.webView);
+        Log.d("xyzhou", "R.id.gridview = " + R.id.gridview);
+    } */
 }
