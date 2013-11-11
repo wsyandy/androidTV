@@ -1,4 +1,4 @@
-package com.example.android;
+package com.example.androidTV;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,28 +17,38 @@ import java.util.Map;
 
 
 public class MyActivity extends Activity {
+    final private Pair<Integer, String> movie = new Pair<Integer, String>(R.drawable.movie, "movie");
+    final private Pair<Integer, String> tv1 = new Pair<Integer, String>(R.drawable.tv1, "tv1");
+    final private Pair<Integer, String> music = new Pair<Integer, String>(R.drawable.music, "music");
+    final private Pair<Integer, String> computer = new Pair<Integer, String>(R.drawable.computer, "computer");
+    final private Pair<Integer, String> settings = new Pair<Integer, String>(R.drawable.settings, "settings");
+    final private Pair<Integer, String> netflix = new Pair<Integer, String>(R.drawable.netflix, "netflix");
+    final private Pair<Integer, String> mlb = new Pair<Integer, String>(R.drawable.mlb, "mlb");
+    final private Pair<Integer, String> preview = new Pair<Integer, String>(R.drawable.preview, "preview");
+    final private Pair<Integer, String> youtube = new Pair<Integer, String>(R.drawable.youtube, "youtube");
+    final private Pair<Integer, String> vimeo = new Pair<Integer, String>(R.drawable.vimeo, "vimeo");
+    final private Pair<Integer, String> podcast = new Pair<Integer, String>(R.drawable.podcast, "podcast");
+    final private Pair<Integer, String> radio = new Pair<Integer, String>(R.drawable.radio, "radio");
+    final private Pair<Integer, String> photo_stream = new Pair<Integer, String>(R.drawable.photo_stream, "photo_stream");
+    final private Pair<Integer, String> flickr = new Pair<Integer, String>(R.drawable.flickr, "flickr");
+    final private Pair<Integer, String> wsj = new Pair<Integer, String>(R.drawable.wsj, "wsj");
 
-    final private Map<Integer, String> map = new HashMap<Integer, String>();
-
-    //final private Integer [] mThumbIds = {1, 2};
-
-    //final private Pair<Integer, String> pair = new Pair<Integer, String>(1, "1");
-    final private Integer [] mThumbIds = {
-            R.drawable.movie,
-            R.drawable.tv1,
-            R.drawable.music,
-            R.drawable.computer,
-            R.drawable.settings,
-            R.drawable.netflix,
-            R.drawable.mlb,
-            R.drawable.preview,
-            R.drawable.youtube,
-            R.drawable.vimeo,
-            R.drawable.podcast,
-            R.drawable.radio,
-            R.drawable.photo_stream,
-            R.drawable.flickr,
-            R.drawable.wsj
+    final private Pair<Integer, String>[] items = new Pair[] {
+            movie,
+            tv1,
+            music,
+            computer,
+            settings,
+            netflix,
+            mlb,
+            preview,
+            youtube,
+            vimeo,
+            podcast,
+            radio,
+            photo_stream,
+            flickr,
+            wsj
     };
 
     /**
@@ -59,7 +69,7 @@ public class MyActivity extends Activity {
 
         final GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
-        gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //To change body of implemented methods use File | Settings | File Templates.
@@ -77,51 +87,13 @@ public class MyActivity extends Activity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("xyzhou", "onNothingSelected");
-                Log.d("xyzhou", "adapterView.getChildAt(0).hasWindowFocus() = " + adapterView.getChildAt(0).hasWindowFocus());
-
-                //Log.d("xyzhou", "focus ? = " + adapterView.getChildAt(0).hasWindowFocus());
-                //adapterView.getChildAt(0).setFocusable(true);
-                //adapterView.getChildAt(0).setFocusableInTouchMode(true);
-                //adapterView.getChildAt(0).requestFocus();
-                //To change body of implemented methods use File | Settings | File Templates.
-                //adapterView.getChildAt(0).requestFitSystemWindows();
             }
         });
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(MyActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
-        });
-
-
-        //gridview.getOnItemSelectedListener().onItemSelected(gridview, gridview.getChildAt(0), 0, 0);
-
-        //gridview.setSelected(false);
-        //gridview.setSelection(0);
-        //gridview.setSelected(true);
-        //gridview.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-
-        for (Integer i = 0; i < mThumbIds.length; i++) {
-            map.put(mThumbIds[i], "123");
-        }
-        /*map.put(R.drawable.movie, "movie");
-        map.put(R.drawable.tv1, "tv1");
-        map.put(R.drawable.music, "music");
-        map.put(R.drawable.computer, "computer");
-        map.put(R.drawable.settings, "settings");
-        map.put(R.drawable.netflix, "netflix");
-        map.put(R.drawable.mlb, "mlb");
-        map.put(R.drawable.preview, "preview");
-        map.put(R.drawable.youtube, "youtube");
-        map.put(R.drawable.vimeo, "vimeo");
-        map.put(R.drawable.podcast, "podcast");
-        map.put(R.drawable.radio, "radio");
-        map.put(R.drawable.photo_stream, "photo_stream");
-        map.put(R.drawable.flickr, "flickr");
-        map.put(R.drawable.wsj, "wsj");*/
-        //gridview.clearTextFilter();
-        gridview.setDescendantFocusability(2);
+        });*/
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -134,7 +106,7 @@ public class MyActivity extends Activity {
         @Override
         public int getCount() {
             //return 0;  //To change body of implemented methods use File | Settings | File Templates.
-            return mThumbIds.length;
+            return items.length;
         }
 
         @Override
@@ -152,41 +124,34 @@ public class MyActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             //return null;  //To change body of implemented methods use File | Settings | File Templates.
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-            ImageView imageView;
+
             if (convertView == null) {  // if it's not recycled, initialize some attributes
                 convertView = layoutInflater.inflate(R.layout.myitem, null);
-                /*imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(180, 100));
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                imageView.setPadding(2, 2, 2, 2);*/
-            } else {
-                //imageView = (ImageView) convertView;
             }
-            //convertView.setLayoutParams(new GridView.LayoutParams(80, 80));
-            convertView.setPadding(2, 2, 2, 2);
-            ((ImageView)convertView.findViewById(R.id.imageView)).setImageResource(mThumbIds[position]);
-            ((TextView)convertView.findViewById(R.id.textView)).setText(map.get(mThumbIds[position]));
-            convertView.setFocusable(true);
-            convertView.setFocusableInTouchMode(true);
-            //convertView.setId(position);
-            //imageView.setTag(position);
-            //imageView.setSelected(true);
-            //imageView.setFocusable(true);
-            //imageView.setFocusableInTouchMode(true);
-            //imageView.setImageResource(mThumbIds[position]);
-            //return imageView;
+
+            ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView);
+            imageView.setImageResource(items[position].first);
+            imageView.setFocusable(true);
+            imageView.setFocusableInTouchMode(true);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setPadding(2, 2, 2, 2);
+            imageView.setBackgroundColor(Color.BLACK);
+
+            imageView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    //To change body of implemented methods use File | Settings | File Templates.
+                    if (b)
+                        view.setBackgroundColor(Color.BLUE);
+                    else
+                        view.setBackgroundColor(Color.BLACK);
+                }
+            });
+
+            TextView textView = (TextView)convertView.findViewById(R.id.textView);
+            textView.setText(items[position].second);
+
             return convertView;
         }
-    }
-
-   @Override
-    public void onWindowFocusChanged(boolean hasFocus)
-    {
-        super.onWindowFocusChanged(hasFocus);
-        Log.d("xyzhou", "hasFocus = " + hasFocus);
-        Log.d("xyzhou", "onWindowFocusChanged");
-        Log.d("xyzhou", "super.getCurrentFocus().getId() = " + super.getCurrentFocus().getId());
-        Log.d("xyzhou", "R.id.webView = " + R.id.webView);
-        Log.d("xyzhou", "R.id.gridview = " + R.id.gridview);
     }
 }
