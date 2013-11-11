@@ -1,4 +1,4 @@
-package com.example.androidTV;
+package com.example.android;
 
 import android.app.Activity;
 import android.content.Context;
@@ -120,6 +120,8 @@ public class MyActivity extends Activity {
         map.put(R.drawable.photo_stream, "photo_stream");
         map.put(R.drawable.flickr, "flickr");
         map.put(R.drawable.wsj, "wsj");*/
+        //gridview.clearTextFilter();
+        gridview.setDescendantFocusability(2);
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -160,9 +162,13 @@ public class MyActivity extends Activity {
             } else {
                 //imageView = (ImageView) convertView;
             }
-            convertView.setLayoutParams(new GridView.LayoutParams(180, 100));
+            //convertView.setLayoutParams(new GridView.LayoutParams(80, 80));
+            convertView.setPadding(2, 2, 2, 2);
             ((ImageView)convertView.findViewById(R.id.imageView)).setImageResource(mThumbIds[position]);
             ((TextView)convertView.findViewById(R.id.textView)).setText(map.get(mThumbIds[position]));
+            convertView.setFocusable(true);
+            convertView.setFocusableInTouchMode(true);
+            //convertView.setId(position);
             //imageView.setTag(position);
             //imageView.setSelected(true);
             //imageView.setFocusable(true);
@@ -173,7 +179,7 @@ public class MyActivity extends Activity {
         }
     }
 
-   /* @Override
+   @Override
     public void onWindowFocusChanged(boolean hasFocus)
     {
         super.onWindowFocusChanged(hasFocus);
@@ -182,5 +188,5 @@ public class MyActivity extends Activity {
         Log.d("xyzhou", "super.getCurrentFocus().getId() = " + super.getCurrentFocus().getId());
         Log.d("xyzhou", "R.id.webView = " + R.id.webView);
         Log.d("xyzhou", "R.id.gridview = " + R.id.gridview);
-    } */
+    }
 }
