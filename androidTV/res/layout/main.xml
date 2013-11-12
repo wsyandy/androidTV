@@ -28,5 +28,6 @@
               android:listSelector="#ffffff"
               android:focusable="true"
               android:descendantFocusability="afterDescendants"
-              android:scrollbars="none"/>
+              android:scrollbars="none" android:layout_marginLeft="20dp" android:layout_marginTop="20dp"
+              android:layout_marginRight="20dp" android:layout_marginBottom="20dp" android:layout_margin="20dp"/>
 </LinearLayout>

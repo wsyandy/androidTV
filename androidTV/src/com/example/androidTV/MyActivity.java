@@ -3,12 +3,17 @@ package com.example.androidTV;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.*;
 
@@ -17,19 +22,20 @@ import java.util.Map;
 
 
 public class MyActivity extends Activity {
-    final private Pair<Integer, String> movie = new Pair<Integer, String>(R.drawable.movie, "movie");
-    final private Pair<Integer, String> tv1 = new Pair<Integer, String>(R.drawable.tv1, "tv1");
-    final private Pair<Integer, String> music = new Pair<Integer, String>(R.drawable.music, "music");
-    final private Pair<Integer, String> computer = new Pair<Integer, String>(R.drawable.computer, "computer");
-    final private Pair<Integer, String> settings = new Pair<Integer, String>(R.drawable.settings, "settings");
+    //final WebView webView = (WebView) findViewById(R.id.webView);
+    final private Pair<Integer, String> movie = new Pair<Integer, String>(R.drawable.movie, "热门电影");
+    final private Pair<Integer, String> tv1 = new Pair<Integer, String>(R.drawable.tv1, "电视");
+    final private Pair<Integer, String> music = new Pair<Integer, String>(R.drawable.music, "音乐");
+    final private Pair<Integer, String> computer = new Pair<Integer, String>(R.drawable.computer, "家庭应用");
+    final private Pair<Integer, String> settings = new Pair<Integer, String>(R.drawable.settings, "系统设置");
     final private Pair<Integer, String> netflix = new Pair<Integer, String>(R.drawable.netflix, "netflix");
     final private Pair<Integer, String> mlb = new Pair<Integer, String>(R.drawable.mlb, "mlb");
-    final private Pair<Integer, String> preview = new Pair<Integer, String>(R.drawable.preview, "preview");
+    final private Pair<Integer, String> preview = new Pair<Integer, String>(R.drawable.preview, "电影预览");
     final private Pair<Integer, String> youtube = new Pair<Integer, String>(R.drawable.youtube, "youtube");
     final private Pair<Integer, String> vimeo = new Pair<Integer, String>(R.drawable.vimeo, "vimeo");
     final private Pair<Integer, String> podcast = new Pair<Integer, String>(R.drawable.podcast, "podcast");
-    final private Pair<Integer, String> radio = new Pair<Integer, String>(R.drawable.radio, "radio");
-    final private Pair<Integer, String> photo_stream = new Pair<Integer, String>(R.drawable.photo_stream, "photo_stream");
+    final private Pair<Integer, String> radio = new Pair<Integer, String>(R.drawable.radio, "广播");
+    final private Pair<Integer, String> photo_stream = new Pair<Integer, String>(R.drawable.photo_stream, "相册");
     final private Pair<Integer, String> flickr = new Pair<Integer, String>(R.drawable.flickr, "flickr");
     final private Pair<Integer, String> wsj = new Pair<Integer, String>(R.drawable.wsj, "wsj");
 
@@ -44,11 +50,11 @@ public class MyActivity extends Activity {
             preview,
             youtube,
             vimeo,
-            podcast,
-            radio,
-            photo_stream,
-            flickr,
-            wsj
+            //podcast,
+            //radio,
+            //photo_stream,
+            //flickr,
+            //wsj
     };
 
     /**
@@ -134,15 +140,37 @@ public class MyActivity extends Activity {
             imageView.setFocusable(true);
             imageView.setFocusableInTouchMode(true);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setPadding(2, 2, 2, 2);
-            imageView.setBackgroundColor(Color.BLACK);
+            //imageView.setAlpha(0);
+            //imageView.setPadding(1, 1, 1, 1);
+            //imageView.setBackgroundColor(Color.BLACK);
+            imageView.setTag(position);
 
             imageView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+                private ImageView mRectangle = new ImageView(mContext);
                 @Override
                 public void onFocusChange(View view, boolean b) {
                     //To change body of implemented methods use File | Settings | File Templates.
-                    if (b)
-                        view.setBackgroundColor(Color.BLUE);
+                    if (b) {
+
+                        //view.setBackgroundColor(Color.BLUE);
+                        Resources res = getResources();
+                        Drawable shape = res.getDrawable(R.drawable.rectangle);
+
+                        view.setBackground(shape);
+
+                        WebView webView = (WebView)findViewById(R.id.webView);
+                        webView.loadUrl("file:///android_asset/" + view.getTag() + ".html");
+
+                        Animation hyperspaceJump = AnimationUtils.loadAnimation(view.getContext(), R.anim.hyperspace_jump);
+                        view.startAnimation(hyperspaceJump);
+
+
+                        //view.setBackgroundResource(R.anim.rocket);
+
+                        //AnimationDrawable rocketAnimation = (AnimationDrawable) view.getBackground();
+                        //rocketAnimation.start();
+                    }
                     else
                         view.setBackgroundColor(Color.BLACK);
                 }
@@ -150,6 +178,7 @@ public class MyActivity extends Activity {
 
             TextView textView = (TextView)convertView.findViewById(R.id.textView);
             textView.setText(items[position].second);
+
 
             return convertView;
         }
