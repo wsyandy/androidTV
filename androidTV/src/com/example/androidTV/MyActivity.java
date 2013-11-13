@@ -2,31 +2,19 @@ package com.example.androidTV;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.util.Pair;
 import android.view.*;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.webkit.WebView;
 import android.widget.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MyActivity extends Activity {
-    //final WebView webView = (WebView) findViewById(R.id.webView);
     final private Pair<Integer, String> movie = new Pair<Integer, String>(R.drawable.movie, "热门电影");
-    final private Pair<Integer, String> tv1 = new Pair<Integer, String>(R.drawable.tv1, "电视");
+    final private Pair<Integer, String> tv1 = new Pair<Integer, String>(R.drawable.tv, "电视");
     final private Pair<Integer, String> music = new Pair<Integer, String>(R.drawable.music, "音乐");
-    final private Pair<Integer, String> computer = new Pair<Integer, String>(R.drawable.computer, "家庭应用");
+    final private Pair<Integer, String> computer = new Pair<Integer, String>(R.drawable.computer_icon, "家庭应用");
     final private Pair<Integer, String> settings = new Pair<Integer, String>(R.drawable.settings, "系统设置");
     final private Pair<Integer, String> netflix = new Pair<Integer, String>(R.drawable.netflix, "netflix");
     final private Pair<Integer, String> mlb = new Pair<Integer, String>(R.drawable.mlb, "mlb");
@@ -53,7 +41,7 @@ public class MyActivity extends Activity {
             //podcast,
             //radio,
             //photo_stream,
-            //flickr,
+            //fxlickr,
             //wsj
     };
 
@@ -69,9 +57,9 @@ public class MyActivity extends Activity {
 
         setContentView(R.layout.main);
 
-        final WebView webView = (WebView) findViewById(R.id.webView);
-        webView.setFocusable(false);
-        webView.setFocusableInTouchMode(false);
+        //final WebView webView = (WebView) findViewById(R.id.webView);
+        //webView.setFocusable(false);
+        //webView.setFocusableInTouchMode(false);
 
         final GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
@@ -100,6 +88,14 @@ public class MyActivity extends Activity {
                 Toast.makeText(MyActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });*/
+
+
+        /*ImageView testImag = new ImageView(this);
+        testImag.setImageResource(R.drawable.robot);
+        part0.removeAllViews();
+        part0.addView(testImag);*/
+
+
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -145,33 +141,52 @@ public class MyActivity extends Activity {
             //imageView.setBackgroundColor(Color.BLACK);
             imageView.setTag(position);
 
-            imageView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
-                private ImageView mRectangle = new ImageView(mContext);
+            imageView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                private Drawable shape = getResources().getDrawable(R.drawable.rectangle);
+                private LinearLayout topLayOut = (LinearLayout) findViewById(R.id.part0);
+                private View[] topViews = {
+                        LayoutInflater.from(mContext).inflate(R.layout.top_movie, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.top_tv, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                        LayoutInflater.from(mContext).inflate(R.layout.android_robot, null),
+                };
                 @Override
                 public void onFocusChange(View view, boolean b) {
+
                     //To change body of implemented methods use File | Settings | File Templates.
                     if (b) {
-
-                        //view.setBackgroundColor(Color.BLUE);
-                        Resources res = getResources();
-                        Drawable shape = res.getDrawable(R.drawable.rectangle);
-
                         view.setBackground(shape);
+                        //view.setBackgroundColor(Color.WHITE);
+                        //View info = topViews[(Integer)view.getTag()];
+                        //View info = LayoutInflater.from(mContext).inflate(R.layout.top_movie, null);
+                        //info = LayoutInflater.from(mContext).inflate(R.layout.top_tv, null);
 
-                        WebView webView = (WebView)findViewById(R.id.webView);
-                        webView.loadUrl("file:///android_asset/" + view.getTag() + ".html");
+                        topLayOut.removeAllViews();
+                        topLayOut.addView(topViews[(Integer)view.getTag()]);
 
-                        Animation hyperspaceJump = AnimationUtils.loadAnimation(view.getContext(), R.anim.hyperspace_jump);
-                        view.startAnimation(hyperspaceJump);
+
+                        //WebView webView = (WebView)findViewById(R.id.webView);
+                        //webView.loadUrl("file:///android_asset/" + view.getTag() + ".html");
+                        //webView.loadUrl("http://www.baidu.com");
+
+                        //Animation hyperspaceJump = AnimationUtils.loadAnimation(view.getContext(), R.anim.hyperspace_jump);
+                        //view.startAnimation(hyperspaceJump);
+
+                        //mRectangle.setImageResource(R.drawable.robot);
 
 
                         //view.setBackgroundResource(R.anim.rocket);
 
                         //AnimationDrawable rocketAnimation = (AnimationDrawable) view.getBackground();
                         //rocketAnimation.start();
-                    }
-                    else
+                    } else
                         view.setBackgroundColor(Color.BLACK);
                 }
             });
