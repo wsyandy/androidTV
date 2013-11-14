@@ -2,12 +2,41 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
 
-    <ImageView
-            android:layout_width="fill_parent"
+    <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/movie_info" android:focusable="true" android:background="@drawable/movie_info"
-            android:focusableInTouchMode="true"/>
+            android:text="Top Movies"
+            />
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tv0" android:focusable="true" android:background="@drawable/icon"
+                android:focusableInTouchMode="true" android:layout_weight="1" android:padding="2dp"
+                android:scaleType="fitXY"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tv1" android:background="@drawable/icon" android:layout_weight="1"
+                android:focusable="true" android:focusableInTouchMode="true" android:padding="2dp"
+                android:scaleType="fitXY"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tv2" android:layout_weight="1" android:background="@drawable/icon"
+                android:focusable="true" android:focusableInTouchMode="true" android:padding="2dp"
+                android:scaleType="fitXY"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tv3" android:layout_weight="1" android:background="@drawable/icon"
+                android:focusable="true" android:focusableInTouchMode="true" android:padding="2dp"
+                android:scaleType="fitXY"/>
+    </LinearLayout>
 </LinearLayout>

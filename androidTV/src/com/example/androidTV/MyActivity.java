@@ -7,7 +7,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.*;
+import android.webkit.WebView;
 import android.widget.*;
+
+import java.util.Map;
+import java.util.WeakHashMap;
 
 
 public class MyActivity extends Activity {
@@ -136,6 +140,7 @@ public class MyActivity extends Activity {
             imageView.setFocusable(true);
             imageView.setFocusableInTouchMode(true);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setBackgroundResource(R.drawable.icon);
             //imageView.setAlpha(0);
             //imageView.setPadding(1, 1, 1, 1);
             //imageView.setBackgroundColor(Color.BLACK);
@@ -162,19 +167,21 @@ public class MyActivity extends Activity {
 
                     //To change body of implemented methods use File | Settings | File Templates.
                     if (b) {
-                        view.setBackground(shape);
+                        //view.setBackground(shape);
                         //view.setBackgroundColor(Color.WHITE);
                         //View info = topViews[(Integer)view.getTag()];
                         //View info = LayoutInflater.from(mContext).inflate(R.layout.top_movie, null);
                         //info = LayoutInflater.from(mContext).inflate(R.layout.top_tv, null);
 
-                        topLayOut.removeAllViews();
-                        topLayOut.addView(topViews[(Integer)view.getTag()]);
+                        //topLayOut.removeAllViews();
+                        //topLayOut.addView(topViews[(Integer)view.getTag()]);
 
 
-                        //WebView webView = (WebView)findViewById(R.id.webView);
+
+                        WebView webView = (WebView)findViewById(R.id.webView);
                         //webView.loadUrl("file:///android_asset/" + view.getTag() + ".html");
                         //webView.loadUrl("http://www.baidu.com");
+                        webView.loadUrl("http://10.94.5.56/1.html");
 
                         //Animation hyperspaceJump = AnimationUtils.loadAnimation(view.getContext(), R.anim.hyperspace_jump);
                         //view.startAnimation(hyperspaceJump);
@@ -186,8 +193,9 @@ public class MyActivity extends Activity {
 
                         //AnimationDrawable rocketAnimation = (AnimationDrawable) view.getBackground();
                         //rocketAnimation.start();
-                    } else
-                        view.setBackgroundColor(Color.BLACK);
+                    } else {
+                        //view.setBackgroundColor(Color.BLACK);
+                    }
                 }
             });
 
